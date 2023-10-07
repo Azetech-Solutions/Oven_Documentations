@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SubSystem type="paramconfig" ref="SubSystem">
+  <Config>
+    <Name>Diag_Config</Name>
+    <Processes>
+      <Process>
+        <Name>Diag_MainFunction</Name>
+        <Index>255</Index>
+        <ProcessGroupRef>PG_x10_Process</ProcessGroupRef>
+        <Enabled>True</Enabled>
+      </Process>
+      <Process>
+        <Name>Diag_Config_Init</Name>
+        <Index>0</Index>
+        <ProcessGroupRef>PG_HwInit</ProcessGroupRef>
+        <Enabled>True</Enabled>
+      </Process>
+    </Processes>
+  </Config>
+  <General>
+    <Name>Diag_General</Name>
+    <HeaderGeneration>False</HeaderGeneration>
+    <ExcludeFileList />
+  </General>
+</SubSystem>

@@ -1,0 +1,57 @@
+.imports system
+.imports system.io
+.Imports System.Collections.Generic
+.public module Diag_Config_C_VBT
+
+.output Diag_Config.c
+.sw.writeline(CopyRightsComments())
+#include "Includes.h"
+#include DIAG_H
+
+/******************************************************/
+/*           Global Variable Definitions              */
+/******************************************************/
+
+// Clear all the flags by default
+DiagFlags_t DiagEventStatus[DiagEvent_COUNT] = {0};
+
+// Initialize Filter Variable
+DiagEventFilter_t DiagActiveFilter = 0;
+
+// Initialize the Diag Filters based on the Mask configured
+DiagEventFilter_t DiagEventFilter[DiagEvent_COUNT] = 
+{
+.For Each myEvent as DiagEvent in pDiag.Config.DiagEvents
+. Dim maskString As String = "( 0"
+. If myEvent.Filters.Count > 0 then
+.  For Each myFilter as Filter in myEvent.Filters
+.   If myFilter.Ref <> "" then
+.    maskString += " | DiagFilter_Mask_" + myFilter.Ref
+.   End If
+.  Next
+. maskString += " )"
+. End If
+    /* $(myEvent.Name) */         $(maskString),
+.Next
+};
+
+/***************************************************/
+/* Function Definitions                            */
+/***************************************************/
+.'
+.' NOTE:
+.' These functions are necessary for the CMake to link the generated object file for the build
+.'
+.'
+void Diag_Config_Init(void)
+{
+    DiagActiveFilter = 0;
+
+    for(int i = 0; i < DiagEvent_COUNT; i++)
+	{
+		DiagEventStatus[i].Flags=0;
+	}
+}
+
+.endoutput
+.end module

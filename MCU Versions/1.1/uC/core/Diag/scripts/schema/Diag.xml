@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<paramdef>
+  <name>Diag</name>
+  <paramobject type="paramcontainer">
+    <name>Config</name>
+    <description>Diagnostics Config Container</description>
+    <lowermultiplicity>1</lowermultiplicity>
+    <uppermultiplicity>1</uppermultiplicity>
+    <paramobject type="listcontainer">
+      <name>DiagEvents</name>
+      <description>List of supported Events</description>
+      <lowermultiplicity>1</lowermultiplicity>
+      <uppermultiplicity>1</uppermultiplicity>
+      <paramobject type="paramcontainer">
+        <name>DiagEvent</name>
+        <description>Diagnostic Event Container</description>
+        <lowermultiplicity>1</lowermultiplicity>
+        <uppermultiplicity>65535</uppermultiplicity>
+        <paramobject type="dataobject" data="text">
+          <name>FailureReason</name>
+          <description>Reasons for this failure to occur</description>
+          <lowermultiplicity>1</lowermultiplicity>
+          <uppermultiplicity>1</uppermultiplicity>
+        </paramobject>
+        <paramobject type="dataobject" data="text">
+          <name>RecoveryWorkAround</name>
+          <description>If this failure occurred, possible work around to recover from this failure</description>
+          <lowermultiplicity>1</lowermultiplicity>
+          <uppermultiplicity>1</uppermultiplicity>
+        </paramobject>
+        <paramobject type="listcontainer">
+          <name>Filters</name>
+          <description>List of Diag Filters supported for this Diag Event</description>
+          <lowermultiplicity>0</lowermultiplicity>
+          <uppermultiplicity>8</uppermultiplicity>
+          <paramobject type="paramcontainer">
+            <name>Filter</name>
+            <description>Diag Filter Supported for this event</description>
+            <lowermultiplicity>1</lowermultiplicity>
+            <uppermultiplicity>1</uppermultiplicity>
+            <paramobject type="referenceobject">
+              <name>Ref</name>
+              <description>Filter Reference</description>
+              <lowermultiplicity>1</lowermultiplicity>
+              <uppermultiplicity>1</uppermultiplicity>
+              <refpath>Diag.Config.DiagFilters.DiagFilter</refpath>
+            </paramobject>
+          </paramobject>
+        </paramobject>
+      </paramobject>
+    </paramobject>
+    <paramobject type="listcontainer">
+      <name>DiagFilters</name>
+      <description>Diag Filters List Container</description>
+      <lowermultiplicity>0</lowermultiplicity>
+      <uppermultiplicity>1</uppermultiplicity>
+      <paramobject type="paramcontainer">
+        <name>DiagFilter</name>
+        <description>Diag Filter to suppress the events</description>
+        <lowermultiplicity>1</lowermultiplicity>
+        <uppermultiplicity>1</uppermultiplicity>
+      </paramobject>
+    </paramobject>
+  </paramobject>
+</paramdef>

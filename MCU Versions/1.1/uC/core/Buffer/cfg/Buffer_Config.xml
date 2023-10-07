@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Buffer type="paramconfig" ref="Buffer">
+  <Config>
+    <Name>Buffer_Config</Name>
+    <RingBuffers>
+      <RingBuffer>
+        <Name>UART1</Name>
+        <Length>100</Length>
+        <Enabled>True</Enabled>
+      </RingBuffer>
+      <RingBuffer>
+        <Name>Debug</Name>
+        <Length>100</Length>
+        <Enabled>True</Enabled>
+      </RingBuffer>
+      <RingBuffer>
+        <Name>Diag_RecentEvents</Name>
+        <Length>10</Length>
+        <Enabled>True</Enabled>
+      </RingBuffer>
+    </RingBuffers>
+  </Config>
+</Buffer>

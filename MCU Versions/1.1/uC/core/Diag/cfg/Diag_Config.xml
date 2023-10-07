@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Diag type="paramconfig" ref="Diag">
+  <Config>
+    <Name>Diag_Config</Name>
+    <DiagEvents>
+      <DiagEvent>
+        <Name>CookingConfig_Error</Name>
+        <Filters>
+          <Filter>
+            <Name />
+          </Filter>
+        </Filters>
+      </DiagEvent>
+      <DiagEvent>
+        <Name>Wash_Error</Name>
+        <Filters>
+          <Filter>
+            <Name />
+          </Filter>
+        </Filters>
+      </DiagEvent>
+      <DiagEvent>
+        <Name>Heater_Error</Name>
+        <Filters>
+          <Filter>
+            <Name />
+          </Filter>
+        </Filters>
+      </DiagEvent>
+      <DiagEvent>
+        <Name>DrainValve_Error</Name>
+        <Filters>
+          <Filter>
+            <Name />
+          </Filter>
+        </Filters>
+      </DiagEvent>
+      <DiagEvent>
+        <Name>Motor_Error</Name>
+        <Filters>
+          <Filter>
+            <Name />
+          </Filter>
+        </Filters>
+      </DiagEvent>
+      <DiagEvent>
+        <Name>Steam_Error</Name>
+        <Filters>
+          <Filter>
+            <Name />
+          </Filter>
+        </Filters>
+      </DiagEvent>
+      <DiagEvent>
+        <Name>HMI_ComIf_Error</Name>
+        <Filters>
+          <Filter>
+            <Name />
+          </Filter>
+        </Filters>
+      </DiagEvent>
+      <DiagEvent>
+        <Name>Sensor_Error</Name>
+        <Filters>
+          <Filter>
+            <Name />
+          </Filter>
+        </Filters>
+      </DiagEvent>
+      <DiagEvent>
+        <Name>Synchronization_Error</Name>
+        <Filters>
+          <Filter>
+            <Name />
+          </Filter>
+        </Filters>
+      </DiagEvent>
+    </DiagEvents>
+    <DiagFilters>
+      <DiagFilter>
+        <Name />
+      </DiagFilter>
+    </DiagFilters>
+  </Config>
+</Diag>

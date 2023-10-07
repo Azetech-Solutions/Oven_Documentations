@@ -1,0 +1,47 @@
+﻿.usedmodule Diag
+.Imports System
+.Imports System.Collections.Generic
+.Imports System.Xml.Serialization
+.Imports System.IO
+.
+.Public Class Filter
+.    Public Property Name As String = ""
+.    Public Property Ref As String = ""
+.End Class
+.
+.Public Class DiagEvent
+.    Public Property Name As String = ""
+.    Public Property FailureReason As String = ""
+.    Public Property RecoveryWorkAround As String = ""
+.    Public Property Filters As New List(Of Filter)
+.End Class
+.
+.Public Class DiagFilter
+.    Public Property Name As String = ""
+.End Class
+.
+.Public Class tDiagConfig
+.    Public Property DiagEvents As New List(Of DiagEvent)
+.    Public Property DiagFilters As New List(Of DiagFilter)
+.End Class
+.
+.Public Class Diag
+.    Public Property Config As New tDiagConfig
+.End Class
+.
+.Public Module Diag_Project_Global
+.
+.    Public pDiag As Diag = Nothing
+.
+.    Public Sub AddDiagModule(ByVal FilePath As String)
+.        Try
+.            Dim serializer As New XmlSerializer(GetType(Diag))
+.            Dim fs As New FileStream(FilePath, FileMode.Open)
+.            pDiag = CType(serializer.Deserialize(fs), Diag)
+.        Catch ex As Exception
+.            Console.WriteLine("ERROR: Exception while accessing " + FilePath)
+.            Console.WriteLine(ex.Message)
+.        End Try
+.    End Sub
+.
+.End Module

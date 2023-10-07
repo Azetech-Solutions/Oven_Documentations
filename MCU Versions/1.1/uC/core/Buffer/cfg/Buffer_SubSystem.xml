@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SubSystem type="paramconfig" ref="SubSystem">
+  <Config>
+    <Name>Config</Name>
+    <Processes>
+      <Process>
+        <Name>Buffer_Init</Name>
+        <Index>0</Index>
+        <ProcessGroupRef>PG_ComInit</ProcessGroupRef>
+        <Enabled>True</Enabled>
+      </Process>
+    </Processes>
+  </Config>
+  <General>
+    <Name>General</Name>
+    <HeaderGeneration>False</HeaderGeneration>
+    <ExcludeFileList />
+  </General>
+</SubSystem>

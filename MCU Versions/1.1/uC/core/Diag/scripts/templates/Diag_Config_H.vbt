@@ -1,0 +1,114 @@
+.imports system
+.imports system.io
+.Imports System.Collections.Generic
+.public module Diag_Config_H_VBT
+
+.output Diag_Config.h
+.sw.writeline(CopyRightsComments())
+#ifndef __DIAG_CONFIG_H__
+#define __DIAG_CONFIG_H__
+
+#include "Platform_Types.h"
+
+/*************************************************/
+/* Functional Switches and Parameter Definitions */
+/*************************************************/
+
+
+/*************************************************/
+/*          Diagnostics Events List IDs          */
+/*************************************************/
+
+. dim i as UInteger = 0
+.For Each myEvent as DiagEvent in pDiag.Config.DiagEvents
+#define DiagEvent_$(myEvent.Name)               $(i)u
+. i += 1
+.Next
+
+#define DiagEvent_COUNT                         $(i)u
+
+/* Macro to create a bit wise byte array for the application layer */
+#define DiagEventStatusByteLength               $(Math.Ceiling(i / 8))u
+
+/*************************************************/
+/*         Diagnostics Filter Definitions        */
+/*************************************************/
+
+. Dim filterCount As UInteger = 0
+.For Each myFilter as DiagFilter in pDiag.Config.DiagFilters
+/* Filter ID and Mask definition for $(myFilter.Name) */
+#define DiagFilter_$(myFilter.Name)             $(filterCount)u
+#define DiagFilter_Mask_$(myFilter.Name)        $(1 << filterCount)u
+
+. filterCount += 1
+.Next
+
+/*************************************************/
+/*               Macro Definitions               */
+/*************************************************/
+
+.For Each myEvent as DiagEvent in pDiag.Config.DiagEvents
+#define Diag_IsFailed_$(myEvent.Name)()         (DiagEventStatus[DiagEvent_$(myEvent.Name)].IsFailed == TRUE)
+.Next
+
+/* Power Cycle Count maximum is UWORD - 16 bits */
+#define DIAG_MAX_POWER_CYCLE_COUNT              ( 65535U )
+
+/* Maximum Failure logged counter is UWORD - 16 bits */
+#define DIAG_MAX_FAILURE_COUNT                  ( 65535U )
+
+/* Diag filter APIs */
+.For Each myFilter as DiagFilter in pDiag.Config.DiagFilters
+
+/* Filter APIs for $(myFilter.Name) */
+#define Diag_ActivateFilter_$(myFilter.Name)()             (DiagActiveFilter |= DiagFilter_Mask_$(myFilter.Name))
+#define Diag_DeactivateFilter_$(myFilter.Name)()           (DiagActiveFilter &= (~DiagFilter_Mask_$(myFilter.Name)))
+#define Diag_IsFilterActive_$(myFilter.Name)()             (DiagActiveFilter & DiagFilter_Mask_$(myFilter.Name) != 0)
+.Next
+
+#define DIAG_MAX_FILTER_COUNT                   $(filterCount)u
+
+/*************************************************/
+/*               Type Definitions                */
+/*************************************************/
+typedef union __DiagFlags_t
+{
+    struct {
+        /* This structure must not exceed 8 bits */
+        
+        /* Status Bits */
+        UBYTE IsFailed      : 1; // If set, then the Diagnostics Event has been failed
+        UBYTE IsNewInstance : 1; // If set, then there is a new instance of the failure has been reported
+        UBYTE IsFiltered    : 1; // If set, then the event is filtered because of system conditions
+    };
+    UBYTE Flags;
+}DiagFlags_t;
+
+. If filterCount < 8 Then
+typedef UBYTE DiagEventFilter_t;
+. Else If filterCount < 16 then
+typedef UWORD DiagEventFilter_t;
+. Else If filterCount < 32 then
+typedef ULONG DiagEventFilter_t;
+. Else
+#error "We cannot accomadate more than 32 filters"
+. End If
+
+/*************************************************/
+/*               Global Variables                */
+/*************************************************/
+
+extern DiagFlags_t DiagEventStatus[];
+extern DiagEventFilter_t DiagEventFilter[];
+extern DiagEventFilter_t DiagActiveFilter;
+
+/*************************************************/
+/*          Extern Function Declarations         */
+/*************************************************/
+
+extern void Diag_Config_Init(void);
+
+#endif /* __DIAG_CONFIG_H__ */
+
+.endoutput
+.end module

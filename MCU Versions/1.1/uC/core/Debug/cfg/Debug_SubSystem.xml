@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SubSystem type="paramconfig" ref="SubSystem">
+  <Config>
+    <Name>Debug_SubSystem</Name>
+    <Processes>
+      <Process>
+        <Name>Debug_MainFunction</Name>
+        <Index>255</Index>
+        <ProcessGroupRef>PG_x10_Process</ProcessGroupRef>
+        <Enabled>True</Enabled>
+      </Process>
+    </Processes>
+  </Config>
+  <General>
+    <Name />
+    <HeaderGeneration>True</HeaderGeneration>
+    <ExcludeFileList />
+  </General>
+</SubSystem>
